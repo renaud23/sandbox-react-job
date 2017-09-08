@@ -1,17 +1,20 @@
-var http = require("http");
-var url = require("url");
-var querystring = require("querystring");
+const http = require('http');
+// const url = require('url');
+// const querystring = require('querystring');
 
-var server = http.createServer((req, res) => {
-  if (req.method == "POST") {
+const server = http.createServer((req, res) => {
+  if (req.method === 'POST') {
+    let body = '';
     req
-      .on("data", d => {
-        console.log(d);
+      .on('data', (d) => {
+        body += d;
       })
-      .on("end", () => {
-        console.log("fini !");
+      .on('end', () => {
+        console.log('fini !');
       });
+    console.log(body);
   }
+
   // res.writeHead(200, {
   //   "Content-Type": "application/json",
   //   "Access-Control-Allow-Origin": "*",
