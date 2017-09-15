@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import layoutReducer from "./layout-reducer";
-import authBasicReducer from "./../auth-basic/auth-reducer";
+import appReducer from "./app-reducer";
+import authReducer from "./../auth/auth-reducer";
 
 const combinedReducers = combineReducers({
-  layoutReducer,
-  authBasicReducer
+  appReducer,
+  authReducer
 });
 
 export default combinedReducers;
