@@ -1,26 +1,59 @@
-import authBasic from "./auth/auth-basic";
+import { SESSION_ITEM } from "./../auth/auth-actions";
+import { connectionException } from "./../auth/auth-exceptions";
 
-export const getJson = (url, callback) => {
-  const headers = authBasic.getHeaders();
+export const getJson = url => {
+  const headers = authJwt.getHeaders();
   headers.set("Content-Type", "application/json;charset=utf-8");
   headers.set("Accept", "application/json;charset=utf-8");
   return fetch(url, {
     method: "GET",
     headers: headers
   })
-    .then(response => response.json())
-    .catch(error => {
-      console.error("wrong", url, error);
+    .then(response => {
+      if (response.status === 401) {
+        const msg = response.json();
+        throw new connectionException("Echec connection : Unauthorized");
+      } else {
+        return response.json();
+      }
+    })
+    .catch(e => {
+      throw e;
     });
 };
 
-export const postRequest = (url, body) => {
+export const postJson = (url, json) => {
+  const headers = new Headers();
+  headers.set("Content-Type", "application/json;charset=utf-8");
+  headers.set("Accept", "application/json;charset=utf-8");
   let config = {
     method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: JSON.stringify(body)
+    headers,
+    body: JSON.stringify(json)
   };
   return fetch(url, config)
-    .then(response => response.json())
-    .catch(err => console.error("Error: ", err));
+    .then(response => {
+      if (response.status === 401) {
+        throw new connectionException("Echec connection : Unauthorized");
+      } else {
+        return response.json();
+      }
+    })
+    .catch(e => {
+      throw e;
+    });
+};
+
+/**
+* Version minimale, pas ici
+*
+*/
+const authJwt = {
+  getHeaders: () => {
+    const headers = new Headers();
+    const token = window.sessionStorage.getItem(SESSION_ITEM);
+    headers.set("Authorization", `Bearer ${token}`);
+
+    return headers;
+  }
 };

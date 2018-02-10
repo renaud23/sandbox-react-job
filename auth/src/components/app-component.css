@@ -1,0 +1,8 @@
+.app {
+  background-color: yellow;
+}
+
+.login-error {
+  color: red;
+  background-color: black;
+}
