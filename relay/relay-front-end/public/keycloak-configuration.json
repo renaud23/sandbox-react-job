@@ -1,0 +1,7 @@
+{
+  "realm": "agents-insee-interne",
+  "auth-server-url": " https://auth.web.innovation.insee.test/auth",
+  "ssl-required": "external",
+  "resource": "onyxia",
+  "public-client": true
+}

@@ -1,0 +1,9 @@
+type Utilisateur { 
+	idep: ID! 
+	domaines: [Domaine]!
+}
+
+type Query {
+	trouverUtilisateur(id: ID!): Utilisateur
+	trouverUtilisateurAvecDomaines(id: ID!): Utilisateur
+}

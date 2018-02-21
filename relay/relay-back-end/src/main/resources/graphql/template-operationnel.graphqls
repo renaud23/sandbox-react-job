@@ -1,0 +1,16 @@
+type TemplateOperationnel {
+	id: ID!
+	idepCreation: String!
+	idepDerniereModif: String!
+	dateCreation: Long!
+	dateDerniereModif: Long
+	description: String!
+	operation: Operation!
+	templateMail: TemplateMail
+
+}
+
+
+extend type Query {
+	templatesOperationnelsUtilisateur(idep: String!): [TemplateOperationnel]
+}
